@@ -8,9 +8,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+        $( function() {
+            $( "#accordion" ).accordion({
+                heightStyle: "content"
+            });
+        } );
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -18,11 +28,22 @@
         <![endif]-->
 
         <script src="" async defer></script>
-        <ul>
+        <!-- <ul>
             <li><a href="admissions_by_any_n_dayrolling-age_band.html">Admissions by Age Band</a></li>
             <li><a href="admissions_by_any_n_dayrolling-hospital.html">Admissions by Hospital</a></li>
             <li><a href="admissions_by_any_n_dayrolling-hsc_trust.html">Admissions by Trust</a></li>
             <li><a href="positivity_rate_by_lgd_7day.html">Positivity Rate by LGD</a></li>
-        </ul>
+        </ul> -->
+
+        <div id="accordion">
+            <h3>Admissions by Age Band</h3>
+            <div>
+                <iframe width="100%" height="100%" src="admissions_by_any_n_dayrolling-age_band.html"></iframe>
+            </div>
+            <h3>Admissions by Hospital</h3>
+            <div>
+                <iframe width="100%" height="100%" src="admissions_by_any_n_dayrolling-hospital.html"></iframe>
+            </div>
+        </div>
     </body>
 </html>
