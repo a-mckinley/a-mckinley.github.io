@@ -39,7 +39,7 @@
 
   <!-- Revealjs Theme -->
   
-  	<link rel="stylesheet" href="libs/reveal.js/4.1.3/theme/blood.css" id="theme">
+  	<link rel="stylesheet" href="libs/reveal.js/4.1.3/theme/solarized.css" id="theme">
   
   
 
@@ -53,7 +53,7 @@
 <body>
   
     <div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1; height:3rem;">
-        <img src="logo_light.png" style="height:100%"/>
+        <img src="logo_dark.png" style="height:100%"/>
     </div>
   
 
@@ -71,7 +71,8 @@
             
             <h3>Knowledge Graphs - Making Sense of Linked Data</h3>
 <p>Alastair McKinley</p>
-<p>CTO Analytics Engines</p>
+<p>CTO - Analytics Engines</p>
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNUMtqwzAQPMdfIXR2CiHtUYWeEugnFB_W9tpe2EhitXlR-u-VJUovLUSnZTQvZqRZIC4Gb3CKjDvz2Zj8koKo25Wb4R7O6gaSIRQgXFAYopuAE1ZECL2CUvAuBhUgLfgUvHo4obNH5AsqDdC-CQG3CXzaJhSabGH28xA4iLNZ7FMEyX622fgwovl4yKZrNjjOj7LblVUjE4Niz2d8bhm92z-9dKVSzS5nmWSBiMaZdQfGX1jvvMITMeNY4Cq37z5cuVQ6rBMnm6tlUg29LqRYiQdB0H_-_jDZvv4oGHpkl6fqmq_mGwSNlN8=" /></div></pre>
 
             </section>
     
@@ -82,12 +83,38 @@
         <section >
             
             <h3>What is a Knowledge Graph?</h3>
+<div class="container">
+<div class="left">
 <ul>
 <li class="fragment fade-in">A method of data organisation</li>
 <li class="fragment fade-in">Stores objects and relationships between objects</li>
-<li class="fragment fade-in">Connections between “things” (nodes) in the real word</li>
-<li class="fragment fade-in">Semantic information about the relationships (edges) between “things”</li>
-<li class="fragment fade-in">Grows to contain more information than the sum of its parts</li>
+<li class="fragment fade-in">Semantic information about relationships (edges)</li>
+</ul>
+</div>
+<div class="fragment fade-in right">
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNkMFOwzAMhs_rU1Q5d0gTcAwSN94BTZPbuq2Fl1SON5gQ706aTJAhBMvJ-v35_x33NArMU41vsJ8ZN_V7VccXFETtJtUMJ39Q6xDUJ8EfURhmOwAHzIoQOgUl7-zsVYA06YN36mCP1jwhH1Gpg-ZRCLgJ4MI6oNBgEtmOnWcv1sRhF2aQ6GeqlfM91s9X2WyrFfbjtXSzUDkyMCi2fMC7htHZ25v7bVopZ6cynWSCGWtbdyQd47esJ17kgZixT3Ie14ncGLeJes55nUgx97xOKLu_iB4UypYZSLAV6l5MafEvljPWD5eRDC2yNfHKO8Hl-70pYr_o7H6Gz2ASf5pfgBOEEiqDf3cuBj6qTwfo2JI=" /></div></pre>
+</div>
+</div>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>What Use Is A Knowledge Graph?</h3>
+<ul>
+<li class="fragment fade-in">
+<p>New ways of analysing connected data</p>
+</li>
+<li class="fragment fade-in">
+<p>Natural way to link data in terms of records and relationships</p>
+</li>
+<li class="fragment fade-in">
+<p><strong>A graph is often more value than the sum of its parts</strong></p>
+</li>
 </ul>
 
             </section>
@@ -100,22 +127,34 @@
             
             <h3>What do we mean by things?</h3>
 <ul>
-<li>
-<p>Almost anything</p>
+<li>Almost anything
 <ul>
-<li class="fragment fade-in">People</li>
-<li class="fragment fade-in">Organisations</li>
-<li class="fragment fade-in">Places</li>
-<li class="fragment fade-in">Events</li>
-<li class="fragment fade-in">Documents</li>
+<li class="fragment fade-in">People &amp; Organisations</li>
+<li class="fragment fade-in">Places &amp; Events</li>
+<li class="fragment fade-in">Documents &amp; Facts</li>
 <li class="fragment fade-in">Genes</li>
 </ul>
 </li>
-<li class="fragment fade-in">
-<p>Semantic Information about these objects (e.g. concepts, properties)</p>
-</li>
-<li class="fragment fade-in">
-<p>Can be related to each other in many ways</p>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>What do we mean by relationships?</h3>
+<ul>
+<li class="fragment fade-in">Many ways to relate objects, dependent on your needs</li>
+<li class="fragment fade-in">E.g
+<ul>
+<li class="fragment fade-in">Does this data belong to this person?</li>
+<li class="fragment fade-in">Did these events happen on the same day?</li>
+<li class="fragment fade-in">Are these documents about the same topic?</li>
+<li class="fragment fade-in">Do these genes interact with the same biological pathway?</li>
+</ul>
 </li>
 </ul>
 
@@ -129,23 +168,14 @@
             
             <h3>Why now?</h3>
 <ul>
-<li>
-<p>Resurgence of interest in KG</p>
-</li>
-<li class="fragment fade-in">
-<p>Search Engine (e.g. Google’s KG)</p>
-</li>
-<li class="fragment fade-in">
-<p>Record Linkage</p>
-</li>
-<li class="fragment fade-in">
-<p>Data Integration</p>
-</li>
-<li class="fragment fade-in">
-<p>Data Interrogation</p>
-</li>
-<li class="fragment fade-in">
-<p>Machine Learning with Graph Data</p>
+<li>Resurgence of interest in KG
+<ul>
+<li class="fragment fade-in">Search Engines (e.g. Google’s KG)</li>
+<li class="fragment fade-in">Record Linkage</li>
+<li class="fragment fade-in">Data Integration</li>
+<li class="fragment fade-in">Data Interrogation</li>
+<li class="fragment fade-in">Machine Learning with Graph Data</li>
+</ul>
 </li>
 </ul>
 
@@ -161,7 +191,7 @@
 <ul>
 <li>A graph about business activity</li>
 </ul>
-<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNUE1LxDAQPW9_Rei5KyiIpwhdLx69l0WmzaQNTpMwSVeL-N9tU7RFLOychsf7mlGmZfCdwA_oPeGt-MzENCECR_mQdoLRDVFahOgS4C7IBF5qoIALwgZthGicld5FBhMTrp2NFnqU-TPSBaNpoCjZABUBbDgGZKPzxKzbxpFjmU9iGzzw5JdnB-sUiuoqm3N2QNVeyy5m1hL53pmIBaGVdzf359RmiU1r-kYHHoUUjeGGcIXjSDOsDRGqBC_yF-TgbCmOj-LJ9R7sWIqKoEaS-fwtrU2D_Orm0jP_l7QKThtBGOpg1AA8rpKfiGoOX-5QiD68jTUN-Md2Q0rHbi1OO6G7LU9bO_GP316lr-wbhRLKww==" /></div></pre>
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNUE1Lw0AQPTe_Ysk5FUQFLyskXjx6L0UmyaRZOt1dZifVIP53sxu0QQx0TsPjfc205sDge4UfcPKEt-ozU9MEARb9mHaC0Q2iLYK4BLgzMoHXHVDAGWGDVkCMs9o7YTCS8M5ZsXBCnb8gnVFMA0XJBqgIYMM2IJsuT8z60DhyrPNJbIMHnvzybGNdi2p3lc0-22B7uJZdRNYcGQgEaxrwviC0-u7mYZ8qzdlpTS_pwaPSqjHcEF5gGSnCnSHCNsGz_BU5OFuq7ZN6dicPdizVjqBG0nl8WdeZBvnNxeaR_0u6CKqFIAx1MO0APF4kPxG7GD4f0yL6cBzjOX9sF6T33gguLaqV0NWW1dJO_eO3Vukr-wbhxMyZ" /></div></pre>
 
             </section>
     
@@ -173,28 +203,15 @@
             
             <h3>What Can A KG be Used For?</h3>
 <ul>
-<li class="fragment fade-in">Information Retrieval
-<ul>
-<li class="fragment fade-in">e.g. Google Search and Virtual Assistant</li>
-</ul>
+<li class="fragment fade-in">Information Retrieval<!-- - e.g. Google Search and Virtual Assistant {.fragment .fade-in} -->
 </li>
-<li class="fragment fade-in">Single View Of Customer/Citizen
-<ul>
-<li class="fragment fade-in">Insurance</li>
-<li class="fragment fade-in">Connecting across multiple disparate datasets</li>
-</ul>
+<li class="fragment fade-in">Single View Of Customer/Citizen<!-- - Insurance {.fragment .fade-in} -->
+<!-- - Connecting across multiple disparate datasets {.fragment .fade-in} -->
 </li>
-<li class="fragment fade-in">Financial Investigation/E-Discovery
-<ul>
-<li class="fragment fade-in">Panama Papers</li>
-</ul>
+<li class="fragment fade-in">Financial Investigation/E-Discovery<!-- - Panama Papers {.fragment .fade-in} -->
 </li>
-<li class="fragment fade-in">Recommender systems
-<ul>
-<li class="fragment fade-in">E-commerce</li>
-<li class="fragment fade-in">Biology</li>
-</ul>
-</li>
+<li class="fragment fade-in">Recommender systems<!-- - E-commerce {.fragment .fade-in} -->
+<!-- - Biology {.fragment .fade-in} --></li>
 </ul>
 
             </section>
@@ -221,15 +238,22 @@
         <section >
             
             <h4>Knowledge Graphs in Biology/Medicine</h4>
+<div class="container">
+<div class="left">
 <ul>
-<li>
-<p>Himmelstein et. al 2017 (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/</a>)</p>
+<li class="fragment fade-in">
+<p>A recommender type approach</p>
 </li>
-<li>
+<li class="fragment fade-in">
 <p>Relationships in a drug repurposing graph</p>
 </li>
 </ul>
-<p class="r-stretch"><img src="2022-05-21_13-41.png" alt=""></p>
+</div>
+<div class="fragment fade-in right">
+<p><img src="2022-05-21_13-41.png" alt=""></p>
+</div>
+</div>
+<h4 class="fragment fade-in">Himmelstein et. al 2017 (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/</a>)</h4>
 
             </section>
     
@@ -241,9 +265,11 @@
             
             <h4>Knowledge Graphs in Biology/Medicine</h4>
 <ul>
-<li>The drug repurposing metagraph</li>
+<li class="fragment fade-in">The drug repurposing metagraph</li>
+<li class="fragment fade-in">How all nodes in the graph can relate</li>
 </ul>
-<img src="metagraph.jpg">
+<p class="fragment fade-in"><img src="metagraph.jpg"></p>
+
             </section>
     
 
@@ -266,7 +292,7 @@
     
         <section >
             
-            <h4>Knowledge Graphs in Biology/Medicine</h4>
+            <h3>Knowledge Graphs in Biology/Medicine</h3>
 <ul>
 <li>How does a Knowledge Graph help in this scenario?
 <ul>
@@ -284,11 +310,42 @@
     
         <section >
             
+            <h3>Knowledge Graphs in Biology/Medicine</h3>
+<ul>
+<li class="fragment fade-in">How do you actual use the KG to find these?</li>
+</ul>
+<div class="fragment fade-in container">
+<pre><code class="language-sql">MATCH path =
+ -- Specify the type of path to match
+ (n0:Disease)-[e1:ASSOCIATES_DaG]-(n1:Gene)-[:INTERACTS_GiG]-
+ (n2:Gene)-[:PARTICIPATES_GpBP]-(n3:BiologicalProcess)
+WHERE
+ -- Specify the source and target nodes
+ n0.name = 'multiple sclerosis' AND
+ n3.name = 'retina layer formation'
+ -- Require GWAS support for the Disease-associates-Gene relationship
+ AND 'GWAS Catalog' in e1.sources
+ -- Require the interacting gene to be upregulated in a relevant tissue
+ AND exists((n0)-[:LOCALIZES_DlA]-(:Anatomy)-[:UPREGULATES_AuG]-(n2))
+RETURN path
+</code></pre>
+</div>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
             <h4>Knowledge Graphs for Single View of Citizen/Customer</h4>
 <ul>
-<li>Combining Datasets</li>
+<li>Combine and Query Disparate Datasets</li>
 </ul>
-<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqtkU1LAzEQhs_dX7HsSWErqHiM0NaDN71rKdPN7G7oNAmTaWsR_7tptmA_rLRgTuHled_50qZh8G2OHzD3hLf5Z5bHFwRY1F36E6zdQpRFEJcEt0Qm8KoGCtgpbNAKiHFWeScMRpJeOysW5qiKZ6QliqmgHLABKgPY0A_Ipi4SOW0qR45VEc02eOCYV2Q96zTmb2fFjLMe6uZcutxQXclVawRLQqvubx7GqZuubPqmbbTgMVd5Zbgi_JFlTRu5NkSok9zZi1fk4Ozg3V49gUBAGVwXsbHIbadMNYtT9PCADrP1lBan-dEBT6ZppWFEe2TZOPZhDTxj1Efki7TI5-O7k_YfTw1FMEVSIV5n4hNwcczoopjh_8QcdbPdSxfgVjZMpDVhoqP815H2MnYX_HvQV_YNrkgveQ==" /></div></pre>
+<div class="fragment fade-in container">
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqtkU1rwzAMhs_Nrwg-bZAO9nX0oO0Ou233rRQ1URJT1Tay2q6M_fclTmH9HC3MJ_Hy6PUrqTAVg69T_IS5J7xNv5K0eUGARd_FmmDtFqItgrgouCUygdclUMBOYYNWQIyz2jthMBL10lmxMEetXpCWKCaHbMAGKAtgQz8gm1JFclrljhxr1TTb4IEbP5X0rCswfT_LZpz0sKjOpbOW6r4MBIJTWuBDRmj1_c3jOEbq_o5lXEkNHlOd5oZzwl9Z1tTKpSHCIspdu3pDDs4OPuzVMwgElMG1atI13GbUVW0E1Sl6uEeH2boNeZIf7fFkqloqRrQHLW3HLlwAzxiLA_JVauTz8e1J-0-nhiKYIunQnGjiI3Cxzegim-H_2Byk2eylM3ArGyZSmzApGvmvI-14bC_4uNF38gM2wTFN" /></div></pre>
+</div>
 
             </section>
     
@@ -299,7 +356,10 @@
         <section >
             
             <h4>Knowledge Graphs for Deep Data Interrogation</h4>
-<p class="r-stretch"><img src="gg.png" alt=""></p>
+<ul>
+<li class="fragment fade-in">Connect records across datasets with weak integrity</li>
+</ul>
+<p class="fragment fade-in"><img src="gg.png" alt=""></p>
 
             </section>
     
@@ -353,7 +413,7 @@
 <li>From known relationships within a relational database</li>
 </ul>
 <pre style="all:unset;"><div><img class="erd" src="https://kroki.io/erd/svg/eNqLDkgtKs7Pi-XSykvMTeXSzslPTizJzM-Lz0zh4or2gfKA0kB-cmZJJVdBfnFJcn4KUGlyfmleSVElRKUzhANRCDaKC2KygpaurqECzCAuGAMiDNXFBQAOBizD" /></div></pre>
-<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNkEFrwzAMhc_NrzA-p4OO7ehBL6OnXcYOY5SgJEoqqtpBVtOVsf--xMkYYZf6ZD99ek9WTa1AdzD4CaeOcWO-MjOcqCDqNg_pwXANZ3UeQUMSQo_C0LkGOOKkCKFXUAredUEFSJPeBK8eTujsDrlHpQryrRBwHsHHdUShxiaybKvAQZwdmn3sQAY_m618qNF83GSzz1ZYt7fS-UhNkZcDKeaM3t3fPe7TNFNsuqZ1HKBD40xFUjH-yXrlUW6IGeskT-32WbC2wyRDYf5WG7i2c_UFL-Y9yHFJAFOFJZ_xF3t73S6JhgRLoeo4E2OKWT8tDBlKZGeZeowF-f-RIz85zyjFYli3FmFc4Xf2A6Bip8s=" /></div></pre>
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNkEFrwzAMhc_NrzA-p4OO7uhBL6OnXcYOY5SgJEoqqtpBVrOVsf--xMkYYZf6ZD99ek9WTa1AdzT4CeeOcWO-MjOcqCDqNtv0YLiGizqPoCEJoUdh6FwDHHFShNArKAXvuqACpElvglcPZ3R2j9yjUgX5Tgg4j-DjOqJQYxNZtlXgIM4OzT52IIOfzVY-1Gjeb7I5ZCus21vpfKSmyMigWPIFtzmjd_d3D4c00pSdrmknR-jQOFORVIx_sl55lBtixjrJU7t9EqztMM5QmP_WBq7tXH3GD_MW5LQkgKlKs_xiry-7JdGQYClUnWZiTDHrx4UhQ4nsLFOPsSD_P3LkJ-cZpVgMO9cijHv8zn4AUhWpnw==" /></div></pre>
 
             </section>
     
@@ -368,7 +428,9 @@
 <li>What about disparate datasets with no nice keys?</li>
 <li class="fragment fade-in">From enrichments using matching algorithms</li>
 </ul>
+<div class="fragment fade-in container">
 <pre style="all:unset;"><div><img class="plantuml" src="https://kroki.io/plantuml/svg/eNp1z7EKAjEMBuA9TxE66aDcdVNQbnK49R7gqG3kqraVJvf-1oqigksg_MkXAh2LyTKHK0A6nskKzky5hVpxi9EEwh2qPk0Rh-BlUu_MOJeJ-RG3usGDuRAOkolEfWm6buhfrS8Nf5r6r1m859HVHl-TnkcuwnijzCniwqZ48o6iJWzWmyVAR9HVx-5WbkdA" /></div></pre>
+</div>
 
             </section>
     
@@ -378,18 +440,35 @@
     
         <section >
             
-            <h3>Other Kinds of Relationships</h3>
+            <h3>What About Unstructured Data?</h3>
 <ul>
-<li class="fragment fade-in">Unstructured data
+<li class="fragment fade-in">Valuable relationships can be created with search algorithms
 <ul class="fragment fade-in">
 <li class="fragment fade-in">Similarity of documents (copy-paste/semantic similarity)</li>
 <li class="fragment fade-in">Similar topics (using deep learning NLP)</li>
+<li class="fragment fade-in">Other <strong>AI</strong> enrichments</li>
 </ul>
 </li>
-<li class="fragment fade-in">Enrich the graph
+</ul>
+<!-- - Enrich the graph {.fragment .fade-in}
+  - Higher order relationships {.fragment .fade-in}
+  - Build relationships from AI enrichments {.fragment .fade-in} -->
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Knowledge Graphs at Analytics Engines</h3>
 <ul>
-<li class="fragment fade-in">Higher order relationships</li>
-<li class="fragment fade-in">Build relationships from AI enrichments</li>
+<li>Building KG based solutions for our customers</li>
+<li>Minerva Toolkit for
+<ul>
+<li>KG Creation + Matching</li>
+<li>KG Maintenance</li>
+<li>KG Analysis and Visualisation</li>
 </ul>
 </li>
 </ul>
@@ -404,14 +483,10 @@
             
             <h3>Knowledge Graphs at Analytics Engines</h3>
 <ul>
-<li>Building KG based solutions for our customers
-<ul>
 <li class="fragment fade-in">Document assessment and linkage</li>
 <li class="fragment fade-in">Disparate dataset integration and pattern detection</li>
-<li class="fragment fade-in">Public and internal data</li>
 <li class="fragment fade-in">Data cleansing and de-obfuscation</li>
-</ul>
-</li>
+<li class="fragment fade-in">With Public and internal data</li>
 </ul>
 
             </section>
@@ -424,10 +499,18 @@
             
             <h3>Conclusion</h3>
 <ul>
-<li class="fragment fade-in">Knowledge Graphs are a different way of thinking about connecting data</li>
-<li class="fragment fade-in">Answer new questions and unlock new capabilities</li>
-<li class="fragment fade-in">Work around legacy data challenges</li>
-<li class="fragment fade-in">If you have ever thought, I could do this if my data was linked, maybe you need a knowledge graph!</li>
+<li class="fragment fade-in">
+<p>Knowledge Graphs are a different way of thinking about connecting data</p>
+</li>
+<li class="fragment fade-in">
+<p>Answer new questions and unlock new capabilities</p>
+</li>
+<li class="fragment fade-in">
+<p>Work around legacy data challenges</p>
+</li>
+<li class="fragment fade-in">
+<p><strong>If you have ever thought, I could do this if my data was linked, maybe you need a knowledge graph!</strong></p>
+</li>
 </ul>
 
             </section>
