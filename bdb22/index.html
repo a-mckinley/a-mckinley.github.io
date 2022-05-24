@@ -86,8 +86,8 @@
 <div class="container">
 <div class="left">
 <ul>
-<li class="fragment fade-in">A method of data organisation</li>
-<li class="fragment fade-in">Stores objects and relationships between objects</li>
+<li class="fragment fade-in">A way to orangise data</li>
+<li class="fragment fade-in">Stores objects (nodes) and relationships between them</li>
 <li class="fragment fade-in">Semantic information about relationships (edges)</li>
 </ul>
 </div>
@@ -107,13 +107,13 @@
             <h3>What Use Is A Knowledge Graph?</h3>
 <ul>
 <li class="fragment fade-in">
-<p>New ways of analysing connected data</p>
+<p>Better ways to analyse connected data</p>
 </li>
 <li class="fragment fade-in">
 <p>Natural way to link data in terms of records and relationships</p>
 </li>
 <li class="fragment fade-in">
-<p><strong>A graph is often more value than the sum of its parts</strong></p>
+<p><strong>A graph is often more valuable than the sum of its parts</strong></p>
 </li>
 </ul>
 
@@ -125,7 +125,7 @@
     
         <section >
             
-            <h3>What do we mean by things?</h3>
+            <h3>What do we mean by nodes?</h3>
 <ul>
 <li>Almost anything
 <ul>
@@ -133,6 +133,7 @@
 <li class="fragment fade-in">Places &amp; Events</li>
 <li class="fragment fade-in">Documents &amp; Facts</li>
 <li class="fragment fade-in">Genes</li>
+<li class="fragment fade-in">All of the above</li>
 </ul>
 </li>
 </ul>
@@ -147,9 +148,10 @@
             
             <h3>What do we mean by relationships?</h3>
 <ul>
-<li class="fragment fade-in">Many ways to relate objects, dependent on your needs</li>
+<li class="fragment fade-in">Nodes can related in many ways, dependent on use-case</li>
 <li class="fragment fade-in">E.g
 <ul>
+<li class="fragment fade-in">Do these two records refer to the same person?</li>
 <li class="fragment fade-in">Does this data belong to this person?</li>
 <li class="fragment fade-in">Did these events happen on the same day?</li>
 <li class="fragment fade-in">Are these documents about the same topic?</li>
@@ -170,28 +172,13 @@
 <ul>
 <li>Resurgence of interest in KG
 <ul>
-<li class="fragment fade-in">Search Engines (e.g. Google’s KG)</li>
-<li class="fragment fade-in">Record Linkage</li>
+<li class="fragment fade-in">Information Retrieval/Search Engines (e.g. Google’s KG)</li>
 <li class="fragment fade-in">Data Integration</li>
 <li class="fragment fade-in">Data Interrogation</li>
 <li class="fragment fade-in">Machine Learning with Graph Data</li>
 </ul>
 </li>
 </ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>Example KG</h3>
-<ul>
-<li>A graph about business activity</li>
-</ul>
-<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNUE1Lw0AQPTe_Ysk5FUQFLyskXjx6L0UmyaRZOt1dZifVIP53sxu0QQx0TsPjfc205sDge4UfcPKEt-ozU9MEARb9mHaC0Q2iLYK4BLgzMoHXHVDAGWGDVkCMs9o7YTCS8M5ZsXBCnb8gnVFMA0XJBqgIYMM2IJsuT8z60DhyrPNJbIMHnvzybGNdi2p3lc0-22B7uJZdRNYcGQgEaxrwviC0-u7mYZ8qzdlpTS_pwaPSqjHcEF5gGSnCnSHCNsGz_BU5OFuq7ZN6dicPdizVjqBG0nl8WdeZBvnNxeaR_0u6CKqFIAx1MO0APF4kPxG7GD4f0yL6cBzjOX9sF6T33gguLaqV0NWW1dJO_eO3Vukr-wbhxMyZ" /></div></pre>
 
             </section>
     
@@ -222,11 +209,69 @@
     
         <section >
             
+            <h3>KG Technologies</h3>
+<ul>
+<li class="fragment fade-in">Graph Databases store graph data natively</li>
+<li class="fragment fade-in">Query languages that make “graph” questions easy (Cypher/SparQL)
+<ul>
+<li class="fragment fade-in">Neo4j</li>
+<li class="fragment fade-in">AWS Neptune</li>
+<li class="fragment fade-in">Azure Cosmos DB</li>
+<li class="fragment fade-in">Several startups/scaleups</li>
+</ul>
+</li>
+<li class="fragment fade-in">You can use an RDBMS</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Graph Specific Algorithms</h3>
+<ul>
+<li>Additional KG tools to solve hard data problems</li>
+<li class="fragment fade-in">Centrality (find node importance)</li>
+<li class="fragment fade-in">Community detection</li>
+<li class="fragment fade-in">Node Similarity (find similar nodes based on properties and neighbours)
+<ul>
+<li>Graph Neural Networks (GNNs)</li>
+</ul>
+</li>
+<li class="fragment fade-in">Path finding (shortest path, existence of path)</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Example KG</h3>
+<ul>
+<li>A graph about business activity</li>
+</ul>
+<pre style="all:unset;"><div><img class="graphviz" src="https://kroki.io/graphviz/svg/eNqNUE1Lw0AQPTe_Ysk5FUQFLys0Xjx6D0UmySRdOtldZifVIP53uxs0QSx0TsPjfc20pmfwB4UfMHjCW_WZqfMEARb9mHaCyY2iLYK4BLgTMoHXHVDAGWGDVkCMs9o7YTCS8M5ZsTCgzl-QTiimgWLHBqgIYMM2IJsuT8y6bxw51vlZbIMHPvvl2ca6FlV1lc0-22DbX8suImuODASCNY14XxBafXfzsE-V5uy0ppccwKPSqjHcEC6wTBThzhBhm-BZ_oocnN2p7ZN6doMHO-1URVAj6Ty-rOtMg_zmYvPI_yUtgnIlCGMdTDsCT4vkJ6KK4fMxLaIPxyme88d2RXo_GMG1RXkh9GLLcm2n_vG7VOnrGxUrzI8=" /></div></pre>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
             <h3>KG graphs in Biology/Medicine</h3>
 <ul>
 <li class="fragment fade-in">Drug re-purposing</li>
-<li class="fragment fade-in">Looking for connections/similar nodes in a graph</li>
-<li class="fragment fade-in">To find out what other conditions known drugs could treat</li>
+<li class="fragment fade-in">Looking for similar nodes in a graph</li>
+<li class="fragment fade-in">What other conditions known drugs could treat</li>
+<li class="fragment fade-in">Recommender type use-case</li>
 </ul>
 
             </section>
@@ -238,37 +283,17 @@
         <section >
             
             <h3>Knowledge Graphs in Biology/Medicine</h3>
-<div class="container">
-<div class="left">
 <ul>
-<li class="fragment fade-in">
-<p>A recommender type approach</p>
-</li>
-<li class="fragment fade-in">
-<p>Relationships in a drug repurposing graph</p>
-</li>
+<li class="fragment fade-in"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/">Himmelstein et. al 2017</a></li>
 </ul>
-</div>
-<div class="fragment fade-in right">
+<div class="container">
+<div class="fragment fade-in left">
 <p><img src="2022-05-21_13-41.png" alt=""></p>
 </div>
+<div class="fragment fade-in right">
+<p><img src="metagraph.jpg" alt=""></p>
 </div>
-<h4 class="fragment fade-in">Himmelstein et. al 2017 (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5640425/</a>)</h4>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>Knowledge Graphs in Biology/Medicine</h3>
-<ul>
-<li class="fragment fade-in">The drug repurposing metagraph</li>
-<li class="fragment fade-in">How all nodes in the graph can relate</li>
-</ul>
-<p class="fragment fade-in"><img src="metagraph.jpg"></p>
+</div>
 
             </section>
     
@@ -313,6 +338,7 @@
             <h3>Knowledge Graphs in Biology/Medicine</h3>
 <ul>
 <li class="fragment fade-in">How do you actual use the KG to find these?</li>
+<li class="fragment fade-in">Query the graph</li>
 </ul>
 <div class="fragment fade-in container">
 <pre><code class="language-sql">MATCH path =
@@ -357,48 +383,9 @@ RETURN path
             
             <h3>Knowledge Graphs for Deep Data Interrogation</h3>
 <ul>
-<li class="fragment fade-in">Connect records across datasets with weak integrity</li>
+<li class="fragment fade-in">Connect records across datasets with weak integrity/duplication</li>
 </ul>
 <p class="fragment fade-in"><img src="gg.png" alt=""></p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>KG Technologies</h3>
-<ul>
-<li class="fragment fade-in">Graph Databases store graph data natively</li>
-<li class="fragment fade-in">Query languages that make “graph” questions easy (Cypher/SparQL)
-<ul>
-<li class="fragment fade-in">Neo4j</li>
-<li class="fragment fade-in">AWS Neptune</li>
-<li class="fragment fade-in">Azure Cosmos DB</li>
-<li class="fragment fade-in">Several startups/scaleups</li>
-</ul>
-</li>
-<li class="fragment fade-in">You can use an RDBMS</li>
-</ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>Graph Specific Algorithms</h3>
-<ul>
-<li>Additional KG tools to solve hard data problems</li>
-<li class="fragment fade-in">Centrality (find node importance)</li>
-<li class="fragment fade-in">Community detection</li>
-<li class="fragment fade-in">Node Similarity (find similar nodes based on properties and neighbours)</li>
-<li class="fragment fade-in">Path finding (shortest path, existence of path)</li>
-</ul>
 
             </section>
     
@@ -448,7 +435,7 @@ RETURN path
             
             <h3>What About Unstructured Data?</h3>
 <ul>
-<li class="fragment fade-in">Valuable relationships can be created with search algorithms
+<li class="fragment fade-in">Useful relationships can be created with search algorithms
 <ul class="fragment fade-in">
 <li class="fragment fade-in">Similarity of documents (copy-paste/semantic similarity)</li>
 <li class="fragment fade-in">Similar topics (using deep learning NLP)</li>
@@ -492,7 +479,7 @@ RETURN path
 <li class="fragment fade-in">Document assessment and linkage</li>
 <li class="fragment fade-in">Disparate dataset integration and pattern detection</li>
 <li class="fragment fade-in">Data cleansing and de-obfuscation</li>
-<li class="fragment fade-in">With Public and internal data</li>
+<li class="fragment fade-in">Public and internal data</li>
 </ul>
 
             </section>
@@ -519,9 +506,9 @@ RETURN path
     
         <section >
             
-            <h3>Conclusion</h3>
+            <h3>Final Thought</h3>
 <ul>
-<li class="fragment fade-in"><strong>If you have ever thought, I could do this if my data was linked, maybe you need a knowledge graph!</strong></li>
+<li class="fragment fade-in"><strong>If you have ever thought, I could do this if my data was connected, maybe you need a knowledge graph!</strong></li>
 </ul>
 
             </section>
@@ -603,7 +590,7 @@ RETURN path
 			controlsLayout: 'bottom-right',
 			controlsBackArrows: 'faded',
 			progress: true,
-			slideNumber: false,
+			slideNumber: true,
 			//#showSlideNumber "all" "print" "speaker"
 			hash: true,//#  hash: false,
 			//# respondToHashChanges: true,
