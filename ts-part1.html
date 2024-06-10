@@ -1,0 +1,1050 @@
+<!doctype html>
+<html >
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--[if lt IE 9]>
+                <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+
+    <!-- <link rel="stylesheet" type="text/css" href="template.css" /> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/template.css" />
+
+    <link href="https://vjs.zencdn.net/5.4.4/video-js.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <!-- <script type='text/javascript' src='menu/js/jquery.cookie.js'></script> -->
+    <!-- <script type='text/javascript' src='menu/js/jquery.hoverIntent.minified.js'></script> -->
+    <!-- <script type='text/javascript' src='menu/js/jquery.dcjqaccordion.2.7.min.js'></script> -->
+
+    <!-- <link href="menu/css/skins/blue.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="menu/css/skins/graphite.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="menu/css/skins/grey.css" rel="stylesheet" type="text/css" /> -->
+  
+    <!-- <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+        
+  
+    <!-- <script src="script.js"></script> -->
+  
+    <!-- <script src="jquery.sticky-kit.js "></script> -->
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/js/jquery.cookie.js'></script>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/js/jquery.hoverIntent.minified.js'></script>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/js/jquery.dcjqaccordion.2.7.min.js'></script>
+
+    <link href="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/css/skins/blue.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/css/skins/graphite.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/menu/css/skins/grey.css" rel="stylesheet" type="text/css" />
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/script.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/diversen/pandoc-bootstrap-adaptive-template@959c3622/jquery.sticky-kit.js"></script>
+    <meta name="generator" content="pandoc" />
+  <meta name="author" content="Alastair McKinley" />
+  <title>Analysing NYC Taxi Data with PostgreSQL, TimescaleDB and Python</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+
+    
+    <div class="navbar navbar-static-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <span class="doc-title">Analysing NYC Taxi Data with PostgreSQL,
+TimescaleDB and Python</span>
+        <ul class="nav pull-right doc-info">
+                    <li><p class="navbar-text">Alastair
+McKinley</p></li>
+                              <li><p class="navbar-text">April 3rd,
+2024</p></li>
+                  </ul>
+      </div>
+    </div>
+  </div>
+    <div class="container">
+    <div class="row">
+            <div id="TOC" class="span3">
+        <div class="well toc">
+
+        <ul>
+        <li><a href="#introduction"
+        id="toc-introduction">Introduction</a></li>
+        <li><a href="#background"
+        id="toc-background">Background</a></li>
+        <li><a href="#setup" id="toc-setup">Setup</a></li>
+        <li><a href="#yellow-trip-taxi-data"
+        id="toc-yellow-trip-taxi-data">Yellow Trip Taxi Data</a>
+        <ul>
+        <li><a href="#schema" id="toc-schema">Schema</a></li>
+        <li><a href="#data-loading" id="toc-data-loading">Data
+        Loading</a></li>
+        </ul></li>
+        <li><a href="#initial-performance-test"
+        id="toc-initial-performance-test">Initial Performance Test</a>
+        <ul>
+        <li><a href="#visualisation"
+        id="toc-visualisation">Visualisation</a></li>
+        <li><a href="#timescaledb"
+        id="toc-timescaledb">TimescaleDB</a></li>
+        </ul></li>
+        <li><a href="#storage" id="toc-storage">Storage</a></li>
+        <li><a href="#archiving-and-cold-storage"
+        id="toc-archiving-and-cold-storage">Archiving and Cold
+        Storage</a>
+        <ul>
+        <li><a href="#archiving-to-parquet"
+        id="toc-archiving-to-parquet">Archiving to Parquet</a></li>
+        <li><a href="#querying-archived-data"
+        id="toc-querying-archived-data">Querying Archived Data</a></li>
+        <li><a href="#pruning-archived-data"
+        id="toc-pruning-archived-data">Pruning Archived Data</a></li>
+        </ul></li>
+        <li><a href="#conclusions"
+        id="toc-conclusions">Conclusions</a></li>
+        </ul>
+
+        </div>
+      </div>
+            <div class="span9">
+
+      
+      <h1 id="introduction">Introduction</h1>
+<p>In this blog I will demonstrate how to ingest and analyse NYC Taxi
+trip data from <a
+href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">here</a>
+in PostgreSQL and TimescaleDB.</p>
+<p>I’ll look at some general tips and tricks during the process and
+explore some of the differences and potential advantages of using
+TimescaleDB over pure PostgreSQL in this type of scenario.</p>
+<p>I’ll show that TimescaleDB can achieve almost 2x faster performance
+in a simple test case with ~3x lower storage requirement without any
+code modication! We’ll also look at how to potentially leverage the
+advanced features to PostgreSQL in conjunction with TimescaleDB to add
+more capabilities to the system.</p>
+<h1 id="background">Background</h1>
+<p>PostgreSQL is the most fully featured and extensible open-source
+database (IMO). No longer simply an RDBMS, it is also a multi modal
+engine including mature support for documents, geo-spatial data and most
+recently vectors, mainly to support AI applications via <a
+href="https://en.wikipedia.org/wiki/Word_embedding">embedding</a> search
+with <a href="https://github.com/pgvector/pgvector">pg_vector</a>.</p>
+<p>The variety of extensions is already extensive and growing due to the
+long-running efforts of the PostgreSQL core team to enable extensibility
+across datatypes, table access methods (including indexes) and server
+side integration more generally.</p>
+<p>PostgreSQL is in my view the default choice for new data applications
+until proven otherwise. A major trend is forming around PostgreSQL
+driven startups and scaleups such as <a
+href="https://supabase.com">Supabase</a>, <a
+href="https://tembo.io">Tembo</a>, <a href="https://neon.tech">Neon</a>
+and <a href="https://electric-sql.com">Electric</a>.</p>
+<p>Which brings us to the major theme of this blog. Perhaps the most
+prolific PostgreSQL extension themed tech company is <a
+href="https://timescale.com">Timescale</a>. TimescaleDB is their open
+source PostgreSQL extension that brings advanced time-series data
+capabilities to PostgreSQL simply by running
+<code>create extension timescaledb</code>.</p>
+<p>TimescaleDB brings a suite of new capabilities to PostgreSQL for
+working with time-series data such as:</p>
+<ul>
+<li>Transparent data compression</li>
+<li>Rich time-series analysis functions in in SQL</li>
+<li>Continuous aggregates for transparent and efficient time-series
+aggregate views</li>
+<li>Data retention and disposal utilities</li>
+</ul>
+<p>I’ll walk step by step through the process of setup and ingestion and
+illustrate some of the key advantages of TimescaleDB and also how
+additional value can be added by layering in other PostgreSQL extensions
+and capabilities.</p>
+<h1 id="setup">Setup</h1>
+<p>I’m running this experiment using a docker compose stack including
+PostgreSQL and TimescaleDB and a single psql container for connecting to
+each database.</p>
+<p>Here is a simplified version of the docker-compose.yml.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pg</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">shm_size</span><span class="kw">:</span><span class="at"> 2gb</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">build</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">context</span><span class="kw">:</span><span class="at"> postgres</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./data/:/data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./postgres/pg_hba.conf:/var/lib/postgresql/pg_hba.conf</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> postgres-sockets:/var/run/postgresql</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ts</span><span class="kw">:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">shm_size</span><span class="kw">:</span><span class="at"> 2gb</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">build</span><span class="kw">:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">context</span><span class="kw">:</span><span class="at"> timescale</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./data/:/data</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./timescale/pg_hba.conf:/var/lib/postgresql/pg_hba.conf</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> timescale-sockets:/var/run/postgresql</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> postgres-sockets:/pg_sockets</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">psql</span><span class="kw">:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">build</span><span class="kw">:</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">context</span><span class="kw">:</span><span class="at"> psql</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">PGUSER</span><span class="kw">:</span><span class="at"> postgres</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">PGDATABASE</span><span class="kw">:</span><span class="at"> postgres</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">PGHOST</span><span class="kw">:</span><span class="at"> /pg_sockets</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./data/:/data</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> ./scripts/:/scripts</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> postgres-sockets:/pg_sockets</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> timescale-sockets:/timescale_sockets</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">command</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;echo psql ready for manual load&quot;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">postgres-sockets</span><span class="kw">:</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">timescale-sockets</span><span class="kw">:</span></span></code></pre></div>
+<p>Of interest here is a little trick to access each database using a
+unix sockets, mounted on shared docker volumes. This enables slightly
+better performance and passwordless access within the docker stack for
+convience, and additionally means no database passwords are stored in
+the docker-compose.yml or environment variables. The custom pg_hba.conf
+files are used in place to enable the unix socket access.</p>
+<h1 id="yellow-trip-taxi-data">Yellow Trip Taxi Data</h1>
+<p>I’ll be downloading and ingesting the yellow trip taxi data for 2023.
+These are distributed as parquet files.</p>
+<h2 id="schema">Schema</h2>
+<p>Having looked at the parquet headers, I’ll create the PostgreSQL
+schema as below:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> yellow_tripdata (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    vendorid <span class="dt">int</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    tpep_pickup_datetime timestamptz <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    tpep_dropoff_datetime timestamptz,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    passenger_count <span class="dt">int</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    trip_distance <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ratecodeid <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    store_and_fwd_flag <span class="dt">char</span>(<span class="dv">1</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    pulocationid <span class="dt">int</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    dolocationid <span class="dt">int</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    payment_type <span class="dt">int</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    fare_amount <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    extra <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    mta_tax <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    tip_amount <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    tolls_amount <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    improvement_surcharge <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    total_amount <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    congestion_surcharge <span class="dt">double</span> <span class="dt">precision</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    airport_fee <span class="dt">double</span> <span class="dt">precision</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p>For TimescaleDB, there is an extra step to create a hypertable:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> create_hypertable(<span class="st">&#39;yellow_tripdata&#39;</span>,<span class="st">&#39;tpep_pickup_datetime&#39;</span>);</span></code></pre></div>
+<p>This creates a hypertable partitioned on the
+<code>tpep_pickup_datetime</code> column. TimescaleDB will automatically
+create partitions for each time interval, which defaults to 7 day
+intervals.</p>
+<!-- Note the use of ```unlogged```.  In PostgreSQL, this creates a table without Write-Ahead-Log (WAL) logging.  WAL has a number of functions related to crash recovery, data durability and replication by ensuring commited transactions exist on disk when the transaction is commited.  Changes to the underlying database files may be made later.
+
+For tables where it isn't critical to have the most durable setup it is much faster to write to unlogged tables. -->
+<h2 id="data-loading">Data Loading</h2>
+<p>I’ll load these into PostgreSQL using psql’s
+<code>\copy from program</code>. In general, using <code>copy</code> or
+<code>\copy</code> is an efficient way to bulk load data in PostgreSQL
+tables. There are some slightly faster more complex methods
+(e.g. pgloader) if you need maximum loading speed. PGLoader is not only
+a bit faster than copy but contains a number of features for data
+transformation and error handling. PostgreSQL 17 has caught up a little
+bit in the error handling stakes, with the long awaited for ON_ERROR
+clause which means <code>\copy</code> can finally handle bad rows in the
+input data <a
+href="https://www.depesz.com/2024/02/07/waiting-for-postgresql-17-add-new-copy-option-save_error_to-rename-copy-option-from-save_error_to-to-on_error/">https://www.depesz.com/2024/02/07/waiting-for-postgresql-17-add-new-copy-option-save_error_to-rename-copy-option-from-save_error_to-to-on_error/</a>.</p>
+<p>I created a python script using pyarrow to crack open the parquet
+files and steam over stdout to psql like so:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="va">$(</span><span class="fu">find</span> /data <span class="at">-type</span> f <span class="at">-name</span> yellow_trip<span class="pp">*</span>.parquet <span class="kw">|</span> <span class="fu">sort</span><span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;loading </span><span class="va">$f</span><span class="st">&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">time</span> /venv/bin/python /scripts/pq-csv.py <span class="va">$f</span> <span class="kw">|</span> <span class="ex">psql</span> <span class="at">-c</span> <span class="st">&quot;\copy yellow_tripdata from pstdin with (format csv,header true)&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> psql <span class="at">-c</span> <span class="st">&quot;analyze;&quot;</span></span></code></pre></div>
+<p>I initially used the python <code>parquet-tools</code> package to
+convert the parquet files to csv but found it was very slow. Using
+pyarrow is significantly faster.</p>
+<p>Here is the key snippet of the python script:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow.parquet <span class="im">as</span> pq</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow.csv <span class="im">as</span> pc</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parquet_to_csv_stream(parquet_file, csv_file):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> pq.read_table(parquet_file)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(csv_file, <span class="st">&#39;wb&#39;</span>) <span class="cf">if</span> csv_file <span class="op">!=</span> <span class="st">&#39;-&#39;</span> <span class="cf">else</span> sys.stdout.<span class="bu">buffer</span> <span class="im">as</span> f:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        pc.write_csv(table, f)</span></code></pre></div>
+<p>Notice that the files are loaded in order of months ascending, as
+it’s typically better to load time series data in time order when
+applying any indexing or compression, as we will later.</p>
+<h1 id="initial-performance-test">Initial Performance Test</h1>
+<p>Now we have 38 million rows of data loaded into PostgreSQL and
+TimescaleDB. For an initial performance test, we’ll query the data for
+the total number of trips per hour in 2023 like so:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> date_trunc(<span class="st">&#39;hour&#39;</span>, tpep_pickup_datetime) <span class="kw">as</span> <span class="kw">hour</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> yellow_tripdata</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2023-01-01 00:00:00&#39;</span> <span class="kw">and</span> tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-12-31 23:00:00&#39;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">group</span> <span class="kw">by</span> <span class="dv">1</span> <span class="kw">order</span> <span class="kw">by</span> <span class="dv">1</span>;</span></code></pre></div>
+<h2 id="visualisation">Visualisation</h2>
+<p>Let’s have a quick look at this data as a heatmap. Each week is a row
+and each hour of the week is a column. The colour of each cell
+represents the number of trips in that hour of that hour.</p>
+<figure>
+<img src="trips_per_hour.png" alt="Trips per hour heatmap" />
+<figcaption aria-hidden="true">Trips per hour heatmap</figcaption>
+</figure>
+<p>Aside from a few missing data points (particularly in week 38), we
+can spot a few key trends by eye.</p>
+<ol type="1">
+<li>Sundays (hours 144-168) are generally quiter</li>
+<li>Thursday evenings (hours 96-120) are generally the busiest</li>
+<li>A slowdown in week 47 for Thanksgiving is evident</li>
+<li>The summer lull from weeks 27 to 36 is visible</li>
+<li>The Christmas week slowdown and new year spike are visible</li>
+</ol>
+<p>For the remainder of this blog we’ll focus more on the database side
+as opposed to the data analysis.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>## PostgreSQL</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">In</span> PostgreSQL this <span class="kw">query</span> takes ~<span class="fl">3.5</span> seconds <span class="kw">to</span> run <span class="kw">on</span> my laptop <span class="kw">over</span> <span class="dv">5</span> runs <span class="kw">as</span> shown below.</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>```bash</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Timing PostgreSQL <span class="kw">query</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3539.862</span> ms (<span class="dv">00</span><span class="ch">:03</span><span class="fl">.540</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3896.645</span> ms (<span class="dv">00</span><span class="ch">:03</span><span class="fl">.897</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3298.131</span> ms (<span class="dv">00</span><span class="ch">:03</span><span class="fl">.298</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3441.904</span> ms (<span class="dv">00</span><span class="ch">:03</span><span class="fl">.442</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3361.824</span> ms (<span class="dv">00</span><span class="ch">:03</span><span class="fl">.362</span>)</span></code></pre></div>
+<p>The abbrievated query plan is shown below (The explain plan times are
+different from the raw times due to timing overheads):</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">Sort</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">2778006</span>.<span class="dv">08</span><span class="op">..</span><span class="fl">2809465.97</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">12583953</span> width<span class="op">=</span><span class="dv">16</span>) (actual <span class="dt">time</span><span class="op">=</span><span class="dv">5875</span>.<span class="dv">667</span><span class="op">..</span><span class="fl">5876.352</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">8758</span> loops<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   Output: (date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, tpep_pickup_datetime)), (<span class="fu">count</span>(<span class="op">*</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">Sort</span> <span class="kw">Key</span>: (date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, yellow_tripdata.tpep_pickup_datetime))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">Sort</span> <span class="kw">Method</span>: quicksort  Memory: <span class="dv">727</span>kB</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>   Buffers: <span class="kw">shared</span> hit<span class="op">=</span><span class="dv">3</span> <span class="kw">read</span><span class="op">=</span><span class="dv">777740</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>   <span class="op">-&gt;</span>  HashAggregate  (<span class="kw">cost</span><span class="op">=</span><span class="dv">1136738</span>.<span class="dv">86</span><span class="op">..</span><span class="fl">1294038.28</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">12583953</span> width<span class="op">=</span><span class="dv">16</span>) (actual <span class="dt">time</span><span class="op">=</span><span class="dv">5840</span>.<span class="dv">385</span><span class="op">..</span><span class="fl">5873.989</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">8758</span> loops<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         Output: (date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, tpep_pickup_datetime)), <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>         <span class="kw">Group</span> <span class="kw">Key</span>: (date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, yellow_tripdata.tpep_pickup_datetime))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>         Batches: <span class="dv">1</span>  Memory <span class="kw">Usage</span>: <span class="dv">394257</span>kB</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>         Buffers: <span class="kw">shared</span> <span class="kw">read</span><span class="op">=</span><span class="dv">777740</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         <span class="op">-&gt;</span>  Gather  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">945288.12</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">38290148</span> width<span class="op">=</span><span class="dv">8</span>) (actual <span class="dt">time</span><span class="op">=</span><span class="dv">86</span>.<span class="dv">859</span><span class="op">..</span><span class="fl">1989.899</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">38306367</span> loops<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>               Output: (date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, tpep_pickup_datetime))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>               Workers Planned: <span class="dv">4</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>               Workers Launched: <span class="dv">4</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>               Buffers: <span class="kw">shared</span> <span class="kw">read</span><span class="op">=</span><span class="dv">777740</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>               <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> <span class="kw">public</span>.yellow_tripdata  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">945288.12</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">9572537</span> width<span class="op">=</span><span class="dv">8</span>) (actual <span class="dt">time</span><span class="op">=</span><span class="dv">65</span>.<span class="dv">954</span><span class="op">..</span><span class="fl">2134.525</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">7661273</span> loops<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     Output: date_trunc(<span class="st">&#39;hour&#39;</span>:<span class="ch">:text</span>, tpep_pickup_datetime)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                     <span class="kw">Filter</span>: ((yellow_tripdata.tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2023-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (yellow_tripdata.tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-12-31 23:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                     <span class="kw">Rows</span> Removed <span class="kw">by</span> <span class="kw">Filter</span>: <span class="dv">772</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                     Buffers: <span class="kw">shared</span> <span class="kw">read</span><span class="op">=</span><span class="dv">777740</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                     Worker <span class="dv">0</span>:  actual <span class="dt">time</span><span class="op">=</span><span class="dv">59</span>.<span class="dv">804</span><span class="op">..</span><span class="fl">2658.429</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">9185268</span> loops<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                       JIT:</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                         <span class="kw">Functions</span>: <span class="dv">4</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                         Options: Inlining <span class="kw">true</span>, Optimization <span class="kw">true</span>, Expressions <span class="kw">true</span>, Deforming <span class="kw">true</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                         Timing: Generation <span class="fl">0.301</span> ms, Inlining <span class="fl">46.205</span> ms, Optimization <span class="fl">7.659</span> ms, Emission <span class="fl">5.882</span> ms, Total <span class="fl">60.047</span> ms</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                       Buffers: <span class="kw">shared</span> <span class="kw">read</span><span class="op">=</span><span class="dv">186433</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                     Worker <span class="dv">1</span>:  actual <span class="dt">time</span><span class="op">=</span><span class="dv">61</span>.<span class="dv">590</span><span class="op">..</span><span class="fl">2631.029</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">9407126</span> loops<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="op">........</span></span></code></pre></div>
+<p>4 parallel workers are launched to scan the table in an average of
+2.1 seconds each and the rest of the time is spent in the aggregate and
+sorting. The majority of the time is spent in the Parallel Seq Scan,
+which is expected as we are reading almost every row in the table
+(except for a few bad rows with dates outside the range).</p>
+<h2 id="timescaledb">TimescaleDB</h2>
+<p>So now we’ll try exactly the same query on in a TimescaleDB
+Hypertable. Here are the timings from 5 runs:</p>
+<pre><code>Time: 3913.671 ms (00:03.914)
+Time: 3696.624 ms (00:03.697)
+Time: 3577.944 ms (00:03.578)
+Time: 3870.301 ms (00:03.870)
+Time: 3719.977 ms (00:03.720)</code></pre>
+<p>It’s actually a little slower! This is because we forgot to take an
+important step that is fundamental to the key value proposition of
+TimescaleDB. TimescaleDB hypertables can implement transaparent
+compression, which is particualarly suitable for compression because it
+is generally immutable after it has been loaded. This means older chunks
+can be effectively “frozen” and compressed into much smaller chunks.
+Given that in an aggregate query like this we read a lot of rows, the
+savings on IO bandwidth can be significant and not only reduce the
+storage cost but also increase the performance of these queries, even
+with the CPU overhead of decompression!</p>
+<p>However, we need to either create a policy for compression, or
+explicitly compression the hypertable chunks. Thankfully, this is very
+straightforward and is implemented in pure SQL, like so:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> compress_chunk((chunk_schema <span class="op">||</span> <span class="st">&#39;.&#39;</span> <span class="op">||</span> chunk_name):<span class="ch">:regclass</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> timescaledb_information.chunks</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> is_compressed <span class="kw">is</span> <span class="kw">false</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> hypertable_name <span class="op">=</span> <span class="st">&#39;yellow_tripdata&#39;</span>;</span></code></pre></div>
+<p>Having compressed the columns, now we will retry the same query:</p>
+<pre><code>Time: 1781.096 ms (00:01.781)
+Time: 1876.659 ms (00:01.877)
+Time: 1951.794 ms (00:01.952)
+Time: 2034.039 ms (00:02.034)
+Time: 2095.667 ms (00:02.096)</code></pre>
+<p>Much better! Now around ~1.9 seconds, almost 2x faster than plain
+postgres! If we look at a fragment of the new query plan we can see the
+Timescale magic that enables this.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Custom <span class="kw">Scan</span> (DecompressChunk) <span class="kw">on</span> _timescaledb_internal._hyper_2_90_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">18</span><span class="op">..</span><span class="fl">69.69</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">379000</span> width<span class="op">=</span><span class="dv">8</span>) (actual <span class="dt">time</span><span class="op">=</span><span class="dv">64</span>.<span class="dv">068</span><span class="op">..</span><span class="fl">108.231</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">644782</span> loops<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>      Output: _hyper_2_90_chunk.tpep_pickup_datetime</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>      Vectorized <span class="kw">Filter</span>: ((_hyper_2_90_chunk.tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2023-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (_hyper_2_90_chunk.tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-12-31 23:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">Bulk</span> Decompression: <span class="kw">true</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      Buffers: <span class="kw">shared</span> hit<span class="op">=</span><span class="dv">1273</span> <span class="kw">read</span><span class="op">=</span><span class="dv">1376</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      Worker <span class="dv">2</span>:  actual <span class="dt">time</span><span class="op">=</span><span class="dv">64</span>.<span class="dv">068</span><span class="op">..</span><span class="fl">108.231</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">644782</span> loops<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        Buffers: <span class="kw">shared</span> hit<span class="op">=</span><span class="dv">1273</span> <span class="kw">read</span><span class="op">=</span><span class="dv">1376</span></span></code></pre></div>
+<p>TimescaleDB implements a custom scan to decompress the chunks on the
+fly, saving a lot of IO bandwidth and hence time. This is a great
+example of how the extensibility of PostgreSQL can be leveraged, in this
+case using the table access method API.</p>
+<h1 id="storage">Storage</h1>
+<p>Given the often eye-watering cost of cloud storage, reducing the
+amout of storage required by your database can be a significant cost
+saving. Below is a comparison of the storage used by PostgreSQL and
+TimescaleDB for this year of Yellow Taxi data.</p>
+<pre><code>PostgreSQL Table Size
+ pg_size_pretty
+----------------
+ 6078 MB
+(1 row)
+
+
+Compressed TimescaleDB Table Size
+ pg_size_pretty
+----------------
+ 1866 MB
+(1 row)</code></pre>
+<p>The TimescaleDB storage requirements are 3.25x smaller! Imagine being
+able reduce your storage cost ~2/3 and get a 2x performance improvement
+at the same time! TimescaleDB has many cases where the performance
+improvements can be even higher, (e.g. continous aggregates as opposed
+to refreshed materialised views) but the fact that simple table scans
+are so much faster is incredibly powerful.</p>
+<h1 id="archiving-and-cold-storage">Archiving and Cold Storage</h1>
+<p>When working with time series data, it is often the case that the
+most recent data is the most frequently accessed and older data is
+required less frequently. TimescaleDB makes this easy with the concept
+of data retention policies. We can move the older chunks to a different
+PostgreSQL tablespace, or on to a different storage location entirely
+such as AWS S3 or cheaper slow storage. Some of the features are native
+to <a href="https://www.timescale.com/cloud">Timescale Cloud</a>, but we
+can also develop similar features in self hosted TimescaleDB, given that
+the extension itself is open source.</p>
+<p>Below I will show one method to manage older chunks via archiving to
+parquet files, but also make these older chunks available for query if
+necessary via a PostgreSQL Foreign Data Wrapper (FDW)!. This is a
+powerful feature of PostgreSQL that enables you to query data from a
+remote source as if it were a local table. This also illustrates how the
+the unique features of TimescaleDB can be combined with the
+extensibility of PostgreSQL to create a powerful data management
+solution.</p>
+<h2 id="archiving-to-parquet">Archiving to Parquet</h2>
+<p>For this example I have loaded 3 months of Yellow Taxi data from
+2023, which gives us 20 7-day chunks with the default chunk policy
+(there are some bad rows outside the expected range in the source
+data).</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> show_chunks(<span class="st">&#39;yellow_tripdata&#39;</span>);</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>┌─────────────────────────────────────────┐</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>│               show_chunks               │</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>├─────────────────────────────────────────┤</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_1_chunk  │</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_2_chunk  │</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_3_chunk  │</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_4_chunk  │</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_5_chunk  │</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_6_chunk  │</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_7_chunk  │</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_8_chunk  │</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_9_chunk  │</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_10_chunk │</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_11_chunk │</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_12_chunk │</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_13_chunk │</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_14_chunk │</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_15_chunk │</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_16_chunk │</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_17_chunk │</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_18_chunk │</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_19_chunk │</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal._hyper_1_20_chunk │</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>└─────────────────────────────────────────┘</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>(<span class="dv">20</span> <span class="kw">rows</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">1.384</span> ms</span></code></pre></div>
+<p>We can also see the start and end ranges of the chunks using the
+timescaledb_information schema (the bad data is now more obvious):</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> chunk_schema, chunk_name, range_start, range_end <span class="kw">from</span> timescaledb_information.chunks <span class="kw">where</span> hypertable_name <span class="op">=</span> <span class="st">&#39;yellow_tripdata&#39;</span> <span class="kw">order</span> <span class="kw">by</span> range_start;</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>┌───────────────────────┬───────────────────┬────────────────────────┬────────────────────────┐</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>│     chunk_schema      │    chunk_name     │      range_start       │       range_end        │</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>├───────────────────────┼───────────────────┼────────────────────────┼────────────────────────┤</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_16_chunk │ <span class="dv">2000</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">28</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2001</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">04</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_15_chunk │ <span class="dv">2002</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">26</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">02</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_3_chunk  │ <span class="dv">2008</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">25</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_10_chunk │ <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">08</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_19_chunk │ <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">13</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">20</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_2_chunk  │ <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">20</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">27</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_1_chunk  │ <span class="dv">2022</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">29</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">05</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_4_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">05</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">12</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_5_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">12</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">19</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_6_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">19</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">26</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_7_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">26</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">02</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_8_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">02</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">09</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_9_chunk  │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">09</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">16</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_11_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">16</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">23</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_12_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">02</span><span class="op">-</span><span class="dv">23</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">02</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_13_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">02</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">09</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_14_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">09</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">16</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_17_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">16</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">23</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_18_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">23</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">30</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>│ _timescaledb_internal │ _hyper_1_20_chunk │ <span class="dv">2023</span><span class="op">-</span><span class="dv">03</span><span class="op">-</span><span class="dv">30</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │ <span class="dv">2023</span><span class="op">-</span><span class="dv">04</span><span class="op">-</span><span class="dv">06</span> <span class="dv">00</span><span class="ch">:00:00</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>└───────────────────────┴───────────────────┴────────────────────────┴────────────────────────┘</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>(<span class="dv">20</span> <span class="kw">rows</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">5.083</span> ms</span></code></pre></div>
+<p>Let’s imagine we want to archive chunk older than 2023-01-01. We can
+achieve this with the following SQL snippet from a wrapper function I
+wrote called <code>archive_old_chunks_to_parquet()</code>:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> chunk_schema, chunk_name, range_start, range_end <span class="kw">in</span> (</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">select</span> <span class="kw">chunk</span>.chunk_schema,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">chunk</span>.chunk_name,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">to_char</span>(<span class="kw">chunk</span>.range_start, <span class="st">&#39;YYYY-MM-DD_HH24-MI-SS&#39;</span>) <span class="kw">as</span> range_start,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">to_char</span>(<span class="kw">chunk</span>.range_end, <span class="st">&#39;YYYY-MM-DD_HH24-MI-SS&#39;</span>) <span class="kw">as</span> range_end</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">from</span> show_chunks(_hypertable_name, older_than <span class="op">=&gt;</span> _archive_older_than) c</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">inner</span> <span class="kw">join</span> timescaledb_information.chunks <span class="kw">chunk</span> <span class="kw">on</span> c <span class="op">=</span> (<span class="kw">chunk</span>.chunk_schema <span class="op">||</span> <span class="st">&#39;.&#39;</span> <span class="op">||</span> <span class="kw">chunk</span>.chunk_name):<span class="ch">:regclass</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">loop</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        raise notice <span class="st">&#39;Archiving chunk %.% from % to %&#39;</span>, chunk_schema, chunk_name, range_start, range_end;</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">execute</span> format($c$</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>            <span class="kw">copy</span> (<span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> %<span class="dv">2</span>$I.%<span class="dv">3</span>$I) <span class="kw">to</span> program <span class="st">&#39;/venv/bin/python /tmp/csv_to_parquet.py %1$s %6$s-%4$s-%5$s.parquet&#39;</span> <span class="kw">with</span> (format csv, <span class="kw">header</span> <span class="kw">true</span>);</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        $c$, _archive_dir, chunk_schema, chunk_name, range_start, range_end, _hypertable_name);</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span> <span class="cf">loop</span>;</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> deleted_chunk <span class="kw">in</span> (<span class="kw">select</span> d:<span class="ch">:text</span> <span class="kw">from</span> drop_chunks(_hypertable_name, older_than <span class="op">=&gt;</span> _archive_older_than) d) <span class="cf">loop</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        raise notice <span class="st">&#39;Dropped chunk %&#39;</span>, deleted_chunk;</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span> <span class="cf">loop</span>;</span></code></pre></div>
+<p>Here we leverage the <code>older_than</code> parameter of the
+<code>show_chunks</code> and <code>drop_chunks</code> functions to
+select and drop the older chunks. We then use the
+<code>copy to program</code> feature of PostgreSQL to stream the chunk
+data to a python script that writes the data to a parquet file with the
+time ranges included in the filename.</p>
+<p>Here is what this looks like if we archive the chunks older than
+2023-01-01 using the utility function:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> archive_old_chunks_to_parquet(<span class="st">&#39;yellow_tripdata&#39;</span>,<span class="st">&#39;2023-01-01&#39;</span>,<span class="st">&#39;/tmp/data/&#39;</span>);</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_2_chunk <span class="kw">from</span> <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">27</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_3_chunk <span class="kw">from</span> <span class="dv">2008</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">25</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_10_chunk <span class="kw">from</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">08</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_15_chunk <span class="kw">from</span> <span class="dv">2002</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">26</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">02</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_16_chunk <span class="kw">from</span> <span class="dv">2000</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">28</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2001</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">04</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_19_chunk <span class="kw">from</span> <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">13</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_2_chunk</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_3_chunk</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_10_chunk</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_15_chunk</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_16_chunk</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_19_chunk</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>┌───────────────────────────────┐</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>│ archive_old_chunks_to_parquet │</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>├───────────────────────────────┤</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>│                               │</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>└───────────────────────────────┘</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="kw">row</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">1982.026</span> ms (<span class="dv">00</span><span class="ch">:01</span><span class="fl">.982</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">from</span> show_chunks(<span class="st">&#39;yellow_tripdata&#39;</span>);</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>┌───────┐</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>│ <span class="fu">count</span> │</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>├───────┤</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>│    <span class="dv">14</span> │</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>└───────┘</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="kw">row</span>)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">0.790</span> ms</span></code></pre></div>
+<p>And now we have 14 chunks remaining in our hypertable and 6 chunks
+archived to parquet files. Thankfully, the drop_chunks function is
+transactional, as with all PostgreSQL <a
+href="https://www.cybertec-postgresql.com/en/transactional-ddls/">DDL</a>,
+so if there is an error in the archiving process, the chunks will not be
+dropped and the data will remain in the hypertable.</p>
+<h2 id="querying-archived-data">Querying Archived Data</h2>
+<p>So what if we want to be able to query the archived data? We can use
+the <a
+href="https://github.com/pgspider/parquet_s3_fdw">parquet_s3_fdw</a>
+extension to achieve this. This extension can read from the local
+filesystem or S3 but in this instance we will test use the local
+filesystem.</p>
+<p>First we install the extension and create a server and schema from
+the foreign tables, where each parquet file is a table:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> extension parquet_s3_fdw;</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> server parquet_s3_srv <span class="kw">foreign</span> <span class="kw">data</span> wrapper parquet_s3_fdw;</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">schema</span> parquet_files;</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>IMPORT <span class="kw">FOREIGN</span> <span class="kw">SCHEMA</span> <span class="ot">&quot;/tmp/data/&quot;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> SERVER parquet_s3_srv</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">INTO</span> parquet_files;</span></code></pre></div>
+<p>This will populate the schema <code>parquet_files</code> with foreign
+tables for each parquet file in the directory <code>/tmp/data/</code>
+where we just acrhived the 6 chunks.</p>
+<p>And now we can see each foreign table in the schema:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> table_name <span class="kw">from</span> information_schema.<span class="kw">tables</span> <span class="kw">where</span> table_schema <span class="op">=</span> <span class="st">&#39;parquet_files&#39;</span>;</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>┌─────────────────────────────────────────────────────────┐</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>│                       table_name                        │</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>├─────────────────────────────────────────────────────────┤</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2002</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">26</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">02</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">27</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2000</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">28</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2001</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">04</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">13</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">08</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>│ yellow_tripdata<span class="op">-</span><span class="dv">2008</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">25</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> │</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>└─────────────────────────────────────────────────────────┘</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>(<span class="dv">6</span> <span class="kw">rows</span>)</span></code></pre></div>
+<p>We can query these parquet files now as if they were normal tables,
+but there is one issue, the data type discovery is not automatic here.
+As we can see below, the default data types are all text, which is not
+ideal and means we can’t simply “union” these with the main
+hypertable.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> parquet_files.<span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span> <span class="kw">limit</span> <span class="dv">1</span>;</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>┌─[ <span class="dt">RECORD</span> <span class="dv">1</span> ]──────────┬────────────────────────┐</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>│ vendorid              │ <span class="dv">2</span>                      │</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>│ tpep_pickup_datetime  │ <span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span> <span class="dv">00</span><span class="ch">:48:43</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>│ tpep_dropoff_datetime │ <span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span> <span class="dv">01</span><span class="ch">:01:48</span><span class="op">+</span><span class="dv">00</span> │</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>│ passenger_count       │ <span class="dv">3</span>                      │</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>│ trip_distance         │ <span class="fl">3.29</span>                   │</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>│ ratecodeid            │ <span class="dv">1</span>                      │</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>│ store_and_fwd_flag    │ N                      │</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>│ pulocationid          │ <span class="dv">231</span>                    │</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>│ dolocationid          │ <span class="dv">40</span>                     │</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>│ payment_type          │ <span class="dv">2</span>                      │</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>│ fare_amount           │ <span class="fl">17.7</span>                   │</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>│ extra                 │ <span class="dv">0</span>                      │</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>│ mta_tax               │ <span class="fl">0.5</span>                    │</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>│ tip_amount            │ <span class="dv">0</span>                      │</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>│ tolls_amount          │ <span class="dv">0</span>                      │</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>│ improvement_surcharge │ <span class="dv">1</span>                      │</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>│ total_amount          │ <span class="fl">21.7</span>                   │</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>│ congestion_surcharge  │ <span class="fl">2.5</span>                    │</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>│ airport_fee           │ <span class="dv">0</span>                      │</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>└───────────────────────┴────────────────────────┘</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">3.483</span> ms</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># \gdesc</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>┌───────────────────────┬──────┐</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>│        <span class="kw">Column</span>         │ <span class="kw">Type</span> │</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>├───────────────────────┼──────┤</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>│ vendorid              │ text │</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>│ tpep_pickup_datetime  │ text │</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>│ tpep_dropoff_datetime │ text │</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>│ passenger_count       │ text │</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>│ trip_distance         │ text │</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>│ ratecodeid            │ text │</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>│ store_and_fwd_flag    │ text │</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>│ pulocationid          │ text │</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>│ dolocationid          │ text │</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>│ payment_type          │ text │</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>│ fare_amount           │ text │</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>│ extra                 │ text │</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>│ mta_tax               │ text │</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>│ tip_amount            │ text │</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>│ tolls_amount          │ text │</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>│ improvement_surcharge │ text │</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>│ total_amount          │ text │</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>│ congestion_surcharge  │ text │</span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>│ airport_fee           │ text │</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>└───────────────────────┴──────┘</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>(<span class="dv">19</span> <span class="kw">rows</span>)</span></code></pre></div>
+<p>But we can fix this by apply casts from the main hypertable to the
+foreign tables and build a “casted” view of the parquet files like so
+(again from a wrapper function called
+<code>create_casted_view_of_parquet()</code>):</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> (<span class="st">&#39;create or replace view &#39;</span> <span class="op">||</span> view_name <span class="op">||</span> <span class="st">&#39; as select &#39;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">||</span> string_agg(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        format(<span class="st">&#39;%1$I::%2$s&#39;</span>, column_name, data_type),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        E<span class="st">&#39;,</span><span class="ch">\n</span><span class="st">&#39;</span> <span class="kw">order</span> <span class="kw">by</span> ordinal_position</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">||</span> E<span class="st">&#39;</span><span class="ch">\n</span><span class="st">from &#39;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">||</span> foreign_schema <span class="op">||</span> <span class="st">&#39;.&#39;</span> <span class="op">||</span> quote_ident(foreign_table_name)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>) <span class="kw">into</span> view_definition</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> information_schema.<span class="kw">columns</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> table_name <span class="op">=</span> internal_table_name;</span></code></pre></div>
+<p>Once the view is created we can then union each view which the main
+hypertable to create a single view of the data using this SQL snippet
+from the wrapper function
+<code>build_union_all_view_of_parquet()</code>:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="st">&#39;create or replace view &#39;</span> <span class="op">||</span> view_name</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">||</span> <span class="st">&#39; as select * from &#39;</span> <span class="op">||</span> internal_table_name</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">||</span> string_agg(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    create_casted_view_of_parquet(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        internal_table_name,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        foreign_schema,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        t.table_name</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    E<span class="st">&#39;</span><span class="ch">\n</span><span class="st">union all select * from &#39;</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>) <span class="kw">into</span> view_definition</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> information_schema.<span class="kw">tables</span> t</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> table_schema <span class="op">=</span> foreign_schema</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> t.table_name ~<span class="op">*</span> internal_table_name;</span></code></pre></div>
+<p>So we when put everything together, we can very simply:</p>
+<ol type="1">
+<li>Archive older chunks to parquet files</li>
+<li>Create a schema of foreign tables from the parquet files</li>
+<li>Create a view of each parquet file with the correct data types</li>
+<li>Create a view that unions all the parquet views with the main
+hypertable</li>
+</ol>
+<p>And here is how that looks when executed:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> archive_old_chunks_to_parquet(<span class="st">&#39;yellow_tripdata&#39;</span>,<span class="st">&#39;2023-01-01&#39;</span>,<span class="st">&#39;/tmp/data/&#39;</span>);</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_2_chunk <span class="kw">from</span> <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2022</span><span class="op">-</span><span class="dv">10</span><span class="op">-</span><span class="dv">27</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_3_chunk <span class="kw">from</span> <span class="dv">2008</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">25</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_10_chunk <span class="kw">from</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">01</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2009</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">08</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_15_chunk <span class="kw">from</span> <span class="dv">2002</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">26</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2003</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">02</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_16_chunk <span class="kw">from</span> <span class="dv">2000</span><span class="op">-</span><span class="dv">12</span><span class="op">-</span><span class="dv">28</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2001</span><span class="op">-</span><span class="dv">01</span><span class="op">-</span><span class="dv">04</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>NOTICE:  Archiving <span class="kw">chunk</span> _timescaledb_internal._hyper_1_19_chunk <span class="kw">from</span> <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">13</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span> <span class="kw">to</span> <span class="dv">2014</span><span class="op">-</span><span class="dv">11</span><span class="op">-</span><span class="dv">20</span>_00<span class="op">-</span><span class="dv">00</span><span class="op">-</span><span class="dv">00</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_2_chunk</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_3_chunk</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_10_chunk</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_15_chunk</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_16_chunk</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>NOTICE:  Dropped <span class="kw">chunk</span> _timescaledb_internal._hyper_1_19_chunk</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>┌───────────────────────────────┐</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>│ archive_old_chunks_to_parquet │</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>├───────────────────────────────┤</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>│                               │</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>└───────────────────────────────┘</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="kw">row</span>)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">2010.483</span> ms (<span class="dv">00</span><span class="ch">:02</span><span class="fl">.010</span>)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">select</span> build_union_all_view_of_parquet(<span class="st">&#39;yellow_tripdata&#39;</span>, <span class="st">&#39;parquet_files&#39;</span>, <span class="st">&#39;/tmp/data/&#39;</span>);</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2022-10-20_00-00-00-2022-10-27_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2000-12-28_00-00-00-2001-01-04_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2014-11-13_00-00-00-2014-11-20_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2009-01-01_00-00-00-2009-01-08_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> <span class="ot">&quot;yellow_tripdata-2008-12-25_00-00-00-2009-01-01_00-00-00_casted&quot;</span> created successfully</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>NOTICE:  <span class="kw">view</span> yellow_tripdata_union_all created successfully</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>┌─────────────────────────────────┐</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>│ build_union_all_view_of_parquet │</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>├─────────────────────────────────┤</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>│                                 │</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>└─────────────────────────────────┘</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="kw">row</span>)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">41.749</span> ms</span></code></pre></div>
+<p>And now we can query the data from the union view of the main
+hypertable and the parquet files. If we look at the query plan we can
+see that the parquet files are being scanned using the parquet_s3_fdw
+extension. I have also added a filter to the query
+<code>fare_amount &gt; 10</code> to show the cast is applied to the
+foreign table in the chunk view.</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>postgres<span class="op">=</span># <span class="kw">explain</span> <span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> yellow_tripdata_union_all <span class="kw">where</span> fare_amount <span class="op">&gt;</span> <span class="dv">10</span>;</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>│                                                                            <span class="kw">QUERY</span> <span class="kw">PLAN</span>                                                                             │</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>├───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>│ Gather  (<span class="kw">cost</span><span class="op">=</span><span class="dv">1000</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">238483.41</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">25</span> width<span class="op">=</span><span class="dv">132</span>)                                                                                                               │</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>│   Workers Planned: <span class="dv">4</span>                                                                                                                                              │</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>│   <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Append  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">237480.91</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">1532858</span> width<span class="op">=</span><span class="dv">132</span>)                                                                                              │</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_14_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_cast_10&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18994.08</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">165870</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_13_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_9&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18771.45</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">162835</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_17_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_cast_11&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18489.20</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">163258</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_9_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_6&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18308.26</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">159538</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_18_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_cast_12&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18251.88</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">160205</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_12_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_8&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">18203.77</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">156810</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_6_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_3&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">17769.67</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">150593</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_5_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_2&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">17572.09</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">149272</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_7_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_4&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">17560.17</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">149374</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_8_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_5&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">17491.49</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">149213</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_11_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_7&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">17359.49</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">149691</span> width<span class="op">=</span><span class="dv">126</span>) │</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_4_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_caste_1&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">16706.45</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">141223</span> width<span class="op">=</span><span class="dv">126</span>)  │</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_1_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_casted&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">8316.53</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">89544</span> width<span class="op">=</span><span class="dv">126</span>)     │</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> Seq <span class="kw">Scan</span> <span class="kw">on</span> _hyper_1_20_chunk <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00_cast_13&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">6022.05</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">65450</span> width<span class="op">=</span><span class="dv">126</span>)   │</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: (fare_amount <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                                      │</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2022-10-20_00-00-00-2022-10-27_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.02</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">1</span> width<span class="op">=</span><span class="dv">132</span>)                                │</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: ((fare_amount):<span class="ch">:double</span> <span class="dt">precision</span> <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                  │</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>│               Reader: <span class="dt">Single</span> <span class="kw">File</span>                                                                                                                                 │</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span>                                                                                                                                       │</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2008-12-25_00-00-00-2009-01-01_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.02</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">1</span> width<span class="op">=</span><span class="dv">132</span>)                                │</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: ((fare_amount):<span class="ch">:double</span> <span class="dt">precision</span> <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                  │</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>│               Reader: <span class="dt">Single</span> <span class="kw">File</span>                                                                                                                                 │</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span>                                                                                                                                       │</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2000-12-28_00-00-00-2001-01-04_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.01</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">0</span> width<span class="op">=</span><span class="dv">132</span>)                                │</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: ((fare_amount):<span class="ch">:double</span> <span class="dt">precision</span> <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                  │</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>│               Reader: <span class="dt">Single</span> <span class="kw">File</span>                                                                                                                                 │</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span>                                                                                                                                       │</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2014-11-13_00-00-00-2014-11-20_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.00</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">0</span> width<span class="op">=</span><span class="dv">132</span>)                                │</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: ((fare_amount):<span class="ch">:double</span> <span class="dt">precision</span> <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                  │</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>│               Reader: <span class="dt">Single</span> <span class="kw">File</span>                                                                                                                                 │</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span>                                                                                                                                       │</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>│         <span class="op">-&gt;</span>  <span class="kw">Parallel</span> <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2009-01-01_00-00-00-2009-01-08_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.00</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">0</span> width<span class="op">=</span><span class="dv">132</span>)                                │</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Filter</span>: ((fare_amount):<span class="ch">:double</span> <span class="dt">precision</span> <span class="op">&gt;</span> <span class="st">&#39;10&#39;</span>:<span class="ch">:double</span> <span class="dt">precision</span>)                                                                                  │</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>│               Reader: <span class="dt">Single</span> <span class="kw">File</span>                                                                                                                                 │</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>│               <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span>                                                                                                                                       │</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>│ JIT:                                                                                                                                                              │</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>│   <span class="kw">Functions</span>: <span class="dv">38</span>                                                                                                                                                   │</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>│   Options: Inlining <span class="kw">false</span>, Optimization <span class="kw">false</span>, Expressions <span class="kw">true</span>, Deforming <span class="kw">true</span>                                                                                   │</span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘</span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>(<span class="dv">54</span> <span class="kw">rows</span>)</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a><span class="dt">Time</span>: <span class="fl">9.410</span> ms</span></code></pre></div>
+<p>This looks pretty good! But with one glaring issue. If we apply a
+time filter to this view, PostgreSQL will happily scan all the tables
+even when we could theoretically gaurantee that no rows in a particular
+parquet could match this condition.</p>
+<h2 id="pruning-archived-data">Pruning Archived Data</h2>
+<p>Ideally we could imform the PostgreSQL planner about the time ranges
+(e.g. the 7-day chunks) for each parquet file. And there <em>should</em>
+be a way to achieve this using check constraints on the <a
+href="https://www.postgresql.org/docs/current/sql-createforeigntable.html">foreign
+table</a>. Normally check constraints are applied to a single column or
+row after insert or update to a regular table. In the context of a
+foreign table, these constraints are not validated but assumed to be
+correct by the planner, so maybe a check constraint may work like
+this:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">foreign</span> <span class="kw">table</span> <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span> <span class="kw">add</span> <span class="kw">constraint</span> check_time_range <span class="kw">check</span> (tpep_pickup_datetime:<span class="ch">:timestamptz</span> <span class="op">&gt;=</span> <span class="st">&#39;2002-12-26 00:00:00&#39;</span> <span class="kw">and</span> tpep_pickup_datetime:<span class="ch">:timestamptz</span> <span class="op">&lt;</span> <span class="st">&#39;2003-01-02 00:00:00&#39;</span>);</span></code></pre></div>
+<p>Unfortunately this approach doesn’t work in our case as the
+underlying types in the FDW are text, and we need to cast them to
+<code>timestamptz</code> which is not an immutable cast (because of
+timezone and date setting complications)! Looking at the PostgreSQL
+source code in <code>src/backend/optimizer/util/plancat.c</code> we see
+this comment in the <code>relation_excluded_by_constraints()</code>
+function which explains why this doesn’t work:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/*</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">     * We do not currently enforce that CHECK constraints contain only</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">     * immutable functions, so it&#39;s necessary to check here. We daren&#39;t draw</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">     * conclusions from plan-time evaluation of non-immutable functions. Since</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">     * they&#39;re ANDed, we can just ignore any mutable constraints in the list,</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">     * and reason about the rest.</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    safe_constraints <span class="op">=</span> NIL<span class="op">;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">foreach</span><span class="op">(</span>lc<span class="op">,</span> constraint_pred<span class="op">)</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        Node <span class="op">*</span>pred <span class="op">=</span> <span class="op">(</span>Node <span class="op">*)</span> lfirst<span class="op">(</span>lc<span class="op">);</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(!</span>contain_mutable_functions<span class="op">(</span>pred<span class="op">))</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            safe_constraints <span class="op">=</span> lappend<span class="op">(</span>safe_constraints<span class="op">,</span> pred<span class="op">);</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>During the process of writing this blog I thought of a different
+solution to this. PostgreSQL can’t exclude the FDW relations because of
+the mutable casts, but what if there is a way to encode this information
+in the wrapper view for each parquet file? It turns out there is a way
+to achieve this by adding dummy conditions to the view, so that
+PostgreSQL can optimise out scanning of the view due to provably false
+filters at evaluation time that in means the FDW relations are never
+scanned at all.</p>
+<p>Here is how this looks in one of the parquet wrapper views:</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">View</span> definition:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a> <span class="kw">SELECT</span> vendorid,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    tpep_pickup_datetime,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    tpep_dropoff_datetime,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    passenger_count,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    trip_distance,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    ratecodeid,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    store_and_fwd_flag,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    pulocationid,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    dolocationid,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    payment_type,</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    fare_amount,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    extra,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    mta_tax,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    tip_amount,</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    tolls_amount,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    improvement_surcharge,</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    total_amount,</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    congestion_surcharge,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    airport_fee,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    archive_timerange</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> ( <span class="kw">SELECT</span> <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.vendorid:<span class="ch">:integer</span> <span class="kw">AS</span> vendorid,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.tpep_pickup_datetime:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span> <span class="kw">AS</span> tpep_pickup_datetime,</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.tpep_dropoff_datetime:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span> <span class="kw">AS</span> tpep_dropoff_datetime,</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.passenger_count:<span class="ch">:integer</span> <span class="kw">AS</span> passenger_count,</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.trip_distance:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> trip_distance,</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.ratecodeid:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> ratecodeid,</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.store_and_fwd_flag:<span class="ch">:character</span>(<span class="dv">1</span>) <span class="kw">AS</span> store_and_fwd_flag,</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.pulocationid:<span class="ch">:integer</span> <span class="kw">AS</span> pulocationid,</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.dolocationid:<span class="ch">:integer</span> <span class="kw">AS</span> dolocationid,</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.payment_type:<span class="ch">:integer</span> <span class="kw">AS</span> payment_type,</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.fare_amount:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> fare_amount,</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.extra:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> extra,</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.mta_tax:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> mta_tax,</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.tip_amount:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> tip_amount,</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.tolls_amount:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> tolls_amount,</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.improvement_surcharge:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> improvement_surcharge,</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.total_amount:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> total_amount,</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.congestion_surcharge:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> congestion_surcharge,</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>            <span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>.airport_fee:<span class="ch">:double</span> <span class="dt">precision</span> <span class="kw">AS</span> airport_fee,</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>            int8range(<span class="st">&#39;1040860800&#39;</span>:<span class="ch">:bigint</span>, <span class="st">&#39;1041465600&#39;</span>:<span class="ch">:bigint</span>) <span class="kw">AS</span> archive_timerange</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>           <span class="kw">FROM</span> parquet_files.<span class="ot">&quot;yellow_tripdata-2002-12-26_00-00-00-2003-01-02_00-00-00&quot;</span>) unnamed_subquery</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> archive_timerange <span class="op">=</span> int8range(<span class="st">&#39;1040860800&#39;</span>:<span class="ch">:bigint</span>, <span class="st">&#39;1041465600&#39;</span>:<span class="ch">:bigint</span>);</span></code></pre></div>
+<p>As you can see I have added a extra column
+<code>archive_timerange</code> and a wrapper filter defined by the epoch
+time of the parquet file min and max time ranges. I also add a column to
+the top level union view which add a archive_timerange to the underlying
+hypertable view, with range -inf to +inf, as it is only useful for the
+parquet views but still needs to be present for a valid union/query. I
+am using PostgreSQL range types here to naturally encode the ranges,
+which also makes the subsequent filters more pleasant to write than with
+multiple columns or integer types. If we now add a filter on
+archive_timerange from the top level union using the range overlap
+operator <code>&amp;&amp;</code>, PostgreSQL may realise that it can
+completely exclude scanning this view! This is akin to creating a
+makeshift Block Range Index (BRIN) which is an index type in PostgreSQL
+that can (amongst other modes of operation) track the min and max values
+of a column within a page to potentially exclude reading it. Let’s see
+if this approach works by applying an example filter to our top level
+union.</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> yellow_tripdata_union_all</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> tpep_pickup_datetime <span class="kw">between</span> <span class="st">&#39;2020-01-01&#39;</span> <span class="kw">and</span> <span class="st">&#39;2023-02-01&#39;</span> <span class="co">-- the actual filter applied to both hytertable and parquet views</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> archive_timerange &amp;&amp; int8range_from_dates(<span class="st">&#39;2020-01-01&#39;</span>, <span class="st">&#39;2023-02-01&#39;</span>); <span class="co">-- optional filter that prunes the parquet views</span></span></code></pre></div>
+<p>The <code>int8range_from_dates()</code> utility function simply wraps
+up creating our range constant filter, this will also work with open
+ranges like ‘2023-01-01’ to ‘infinity’ or ‘-infinity’ to ‘2023-01-01’.
+The subsequent execution plan is shown below:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">QUERY</span> <span class="kw">PLAN</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Aggregate  (<span class="kw">cost</span><span class="op">=</span><span class="dv">120712</span>.<span class="dv">83</span><span class="op">..</span><span class="fl">120712.84</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">1</span> width<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">-&gt;</span>  Append  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">113044.16</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">3067468</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  <span class="kw">Index</span> <span class="kw">Only</span> <span class="kw">Scan</span> <span class="kw">using</span> _hyper_1_1_chunk_yellow_tripdata_tpep_pickup_datetime_idx <span class="kw">on</span> _hyper_1_1_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">10564.33</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">323429</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>              <span class="kw">Index</span> Cond: ((tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  <span class="kw">Index</span> <span class="kw">Only</span> <span class="kw">Scan</span> <span class="kw">using</span> _hyper_1_4_chunk_yellow_tripdata_tpep_pickup_datetime_idx <span class="kw">on</span> _hyper_1_4_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">21854.86</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">685088</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>              <span class="kw">Index</span> Cond: ((tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  <span class="kw">Index</span> <span class="kw">Only</span> <span class="kw">Scan</span> <span class="kw">using</span> _hyper_1_5_chunk_yellow_tripdata_tpep_pickup_datetime_idx <span class="kw">on</span> _hyper_1_5_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">22916.08</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">719223</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>              <span class="kw">Index</span> Cond: ((tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  <span class="kw">Index</span> <span class="kw">Only</span> <span class="kw">Scan</span> <span class="kw">using</span> _hyper_1_6_chunk_yellow_tripdata_tpep_pickup_datetime_idx <span class="kw">on</span> _hyper_1_6_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">23028.00</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">728542</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>              <span class="kw">Index</span> Cond: ((tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  <span class="kw">Index</span> <span class="kw">Only</span> <span class="kw">Scan</span> <span class="kw">using</span> _hyper_1_7_chunk_yellow_tripdata_tpep_pickup_datetime_idx <span class="kw">on</span> _hyper_1_7_chunk  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">42</span><span class="op">..</span><span class="fl">19343.43</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">611185</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>              <span class="kw">Index</span> Cond: ((tpep_pickup_datetime <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> (tpep_pickup_datetime <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">-&gt;</span>  Subquery <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;*SELECT* 6&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.11</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">1</span> width<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>              <span class="op">-&gt;</span>  <span class="kw">Foreign</span> <span class="kw">Scan</span> <span class="kw">on</span> <span class="ot">&quot;yellow_tripdata-2022-10-20_00-00-00-2022-10-27_00-00-00&quot;</span>  (<span class="kw">cost</span><span class="op">=</span><span class="dv">0</span>.<span class="dv">00</span><span class="op">..</span><span class="fl">0.11</span> <span class="kw">rows</span><span class="op">=</span><span class="dv">0</span> width<span class="op">=</span><span class="dv">164</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">Filter</span>: (((tpep_pickup_datetime):<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span> <span class="op">&gt;=</span> <span class="st">&#39;2020-01-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>) <span class="kw">AND</span> ((tpep_pickup_datetime):<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span> <span class="op">&lt;=</span> <span class="st">&#39;2023-02-01 00:00:00+00&#39;</span>:<span class="ch">:timestamp</span> <span class="kw">with</span> <span class="dt">time</span> <span class="dt">zone</span>))</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>                    Reader: <span class="dt">Single</span> <span class="kw">File</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">Row</span> <span class="kw">groups</span>: <span class="dv">1</span></span></code></pre></div>
+<p>As you can see the query now appropriately prunes the hypertable scan
+(from 14 partitions to 5) and also the parquet views (from 6 files to
+1)! Obviously this adds a little extra burden on the query writer to
+include a correct range filter, but the benefits are clear particularly
+with a large amount of archived data.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>TimescaleDB is a powerful extension to PostgreSQL that allows for
+efficient time-series data storage and querying. We’ve shown that is
+faster and requires much less storage than vanilla PostgreSQL for
+time-series data, which can save time, money and improve user
+experience.</p>
+<p>By leveraging TimescaleDB and the extensibility of PostgreSQL itself
+we’ve seen how to archive old data to parquet files and query them using
+the parquet_s3_fdw extension. Finally we’ve shown how to optimise the
+query planner to avoid scanning the parquet files when the time range
+filter can be applied to the hypertable and parquet views.</p>
+<p>TimescaleDB has big advantages for developer experience and
+productivity allowing time-series analysis to performed entirely in SQL
+and with the full repertoire of the PostgreSQL ecosystem.</p>
+            </div>
+    </div>
+  </div>
+  <script src="https://vjs.zencdn.net/5.4.4/video.js"></script>
+
+</body>
+</html>
